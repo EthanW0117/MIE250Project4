@@ -1,5 +1,5 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,6 +8,7 @@ import soln.solver.ChvatalSolver;
 import soln.solver.GreedyCostSolver;
 import soln.solver.GreedyCoverageSolver;
 import soln.solver.GreedySolver;
+
 
 import java.io.*;
 
@@ -23,7 +24,7 @@ public class TestSCPSoln {
 	public static void main(String[] args) throws IOException {
 		
 		SCPModel model = new SCPModel();
-		
+//		SCPModel model = TestSCPSoln.readFiles(new File("files/SCP_L_1000-1200.txt"));
 		// Create a weighted SCP with
 		//   Set 1: weight 3.0, elements { 1, 3, 5, 7, 9 }
 		//   Set 2: weight 2.0, elements { 1, 5, 9 }
@@ -49,6 +50,7 @@ public class TestSCPSoln {
 		printComparison(solvers, model, 0.3);
 		System.out.println("==========================================================================");
 		printComparison(solvers, model, 0.9);
+		
 	}
 		
 	// set minimum coverage level for solution methods
@@ -107,4 +109,34 @@ public class TestSCPSoln {
 		System.out.println("Overall winner: " + overall + "\n");
 	}
 	
+//	public static SCPModel readFiles(File file) throws IOException {
+//		BufferedReader cin = new BufferedReader(new FileReader(file));
+//		SCPModel model = new SCPModel();
+//		String idc = null;
+//		int numberofSets = 0;
+//		int id = 1;
+//		double cost = 0;
+//		ArrayList<Integer> ele = new ArrayList<Integer>();
+//		int i = 1; 
+//		do {
+//			if(idc == null) {
+//				idc = cin.readLine();
+//				numberofSets = Integer.parseInt(cin.readLine());
+//			}
+//			else {
+//				cost = Double.parseDouble(cin.readLine());
+//				for (i = Integer.parseInt(cin.readLine()); i !=0;) {
+//					ele.add(i);
+//					i = Integer.parseInt(cin.readLine());
+//				}
+//				model.addSetToCover(id, cost, ele);
+//				ele.removeAll(ele);
+//				id++;
+//			}
+//		}while(id != numberofSets+1);
+//		
+//		cin.close();
+//		return model;
+//	}
+		
 }

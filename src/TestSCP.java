@@ -1,5 +1,3 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,8 +20,8 @@ public class TestSCP {
 	
 	public static void main(String[] args) throws IOException {
 		
+//		SCPModel model = SCPModel.readFiles(new File("files/SCP_L_1000-1200.txt"));
 		SCPModel model = new SCPModel();
-		
 		// Create a weighted SCP with
 		//   Set 1: weight 3.0, elements { 1, 3, 5, 7, 9 }
 		//   Set 2: weight 2.0, elements { 1, 5, 9 }
@@ -37,7 +35,7 @@ public class TestSCP {
 		model.addSetToCover(3, 2.0, Arrays.asList(new Integer[] {5,7,9}));
 		model.addSetToCover(2, 2.0, Arrays.asList(new Integer[] {1,5,9}));
 		model.addSetToCover(1, 3.0, Arrays.asList(new Integer[] {1,3,5,7,9}));
-		
+
 		GreedyCoverageSolver CoverageMethod = new GreedyCoverageSolver();
 		GreedyCostSolver CostMethod = new GreedyCostSolver();
 		ChvatalSolver ChvatalMethod = new ChvatalSolver();
@@ -106,5 +104,5 @@ public class TestSCP {
 		
 		System.out.println("Overall winner: " + overall + "\n");
 	}
-	
+
 }

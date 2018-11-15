@@ -1,6 +1,11 @@
 package solver;
-import java.util.SortedSet;
+
+
+import java.util.HashSet;
 import java.util.TreeSet;
+
+import model.SCPModel;
+import util.ElementSet;
 
 /** This is the main method that all solvers inherit from.  It is important
  *  to note how this solver calls nextBestSet() polymorphically!  Subclasses
@@ -20,7 +25,11 @@ public abstract class GreedySolver {
 	protected double _objFn;          // objective function value (*total cost sum* of all sets used)
 	protected double _coverage;       // actual coverage fraction achieved
 	protected long _compTime;         // computation time (ms)
-	
+
+	//Record all the _nextBestSet
+	protected TreeSet<ElementSet> _solnSets;
+	//Record all the Elements that havent been covered yet
+	protected HashSet<Integer> _unusedEles;
 	// Basic setter (only one needed)
 	public void setMinCoverage(double alpha) { _alpha = alpha; }
 	public void setModel(SCPModel model) { _model = model; }
@@ -33,7 +42,17 @@ public abstract class GreedySolver {
 	public String getName() { return _name; }
 		
 	// TODO: Add any helper methods you need
+	public GreedySolver() {
+		_name = new String();
+	}
 	
+	public void reset() {
+		_objFn = 0d;
+		_coverage = 0d;
+		_compTime = 0l;
+		_solnSets = new TreeSet<ElementSet>();
+		_unusedEles = new HashSet<Integer>();
+	}
 	/** Run the simple greedy heuristic -- add the next best set until either
 	 *  (1) The coverage level is reached, or 
 	 *  (2) There is no set that can increase the coverage.
@@ -44,6 +63,7 @@ public abstract class GreedySolver {
 		reset();
 		
 		// TODO: Preliminary initializations
+		// I use reset() to initialize all the value 
 
 		// Begin the greedy selection loop
 		long start = System.currentTimeMillis();
@@ -62,9 +82,32 @@ public abstract class GreedySolver {
 		//
 		//      Call nextBestSet() to get the next best ElementSet to add (if there is one)
 		// 		Update solution and local members
-				
+		
+		//Follow the pseudocode
+		int num_to_cover = (int)Math.ceil(_alpha * _model.countElements());
+		int num_can_leave_uncovered = _model.countElements() - num_to_cover;
+		
+		boolean _allPossible = false;
+		
+		_unusedEles.addAll(_model.getAllEles());
+		
+		while (_unusedEles.size() > num_can_leave_uncovered && !_allPossible) {
+			
+			ElementSet _nextBestSet = this.nextBestSet();
+			
+			if(_nextBestSet == null){
+				_allPossible = true;
+				break;
+			}
+			
+			_solnSets.add(_nextBestSet);
+			_objFn += _nextBestSet.getCost();
+			_unusedEles.removeAll(_nextBestSet.getAllElements());
+			System.out.println("- Selected: " + _nextBestSet.toString());
+			
+		}
 		// Record final set coverage, compTime and print warning if applicable
-		_coverage = -1d; // TODO: Correct this, should be coverage of solution found
+		_coverage = ((double)(_model.countElements() - _unusedEles.size()) / _model.countElements());// TODO: Correct this, should be coverage of solution found
 		_compTime = System.currentTimeMillis() - start;
 		if (_coverage < _alpha)
 			System.out.format("\nWARNING: Impossible to reach %.2f%% coverage level.\n", 100*_alpha);
