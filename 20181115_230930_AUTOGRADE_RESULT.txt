@@ -1,0 +1,30 @@
+FailedTestCases:
+test2: ../files/SCP_S_10-20.txt
+
+Computation Time NOT EQUAL OR LESS THAN REQUIRED
+
+Solution Used Time: 2
+User Used Time: 11
+=========
+
+test3: ../files/SCP_S_10-30.txt
+
+Computation Time NOT EQUAL OR LESS THAN REQUIRED
+
+Solution Used Time: 1
+User Used Time: 43
+=========
+
+test9: ../files/SCP_M_250-300.txt
+
+Computation Time NOT EQUAL OR LESS THAN REQUIRED
+
+Solution Used Time: 14
+User Used Time: 251
+=========
+
+
+
+Your grade for this assignment: 6.5 out of 8.0
+If you think there is a grading mistake,
+Please consult the TA during office hours.
