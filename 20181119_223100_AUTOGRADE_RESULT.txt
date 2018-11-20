@@ -1,0 +1,21 @@
+FailedTestCases:
+test10: ../files/SCP_M_250-100.txt
+
+Computation Time NOT EQUAL OR LESS THAN REQUIRED
+
+Solution Used Time: 4
+User Used Time: 33
+=========
+
+
+
+PLEASE IGNORE THIS FILE IF YOU DID NOT SUBMIT LATE.
+Everyone gets marked for late submission.
+This is a late submission automarker.
+finalGrade = max(earlyGrade, lateGrade)
+Your grade before deduction: 7.5
+Your late grade after 30 percent late submission deduction: 5.25
+Late Grade Calculation Formula: late_grade = (0.7*grade_before_deduction)
+Your grade for this assignment: 5.25 out of 8.0
+If you think there is a grading mistake,
+Please consult the TA during office hours.
